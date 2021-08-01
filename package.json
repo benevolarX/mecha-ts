@@ -1,0 +1,24 @@
+{
+  "name": "mecha-ts",
+  "version": "1.1.0",
+  "description": "finished state machine using typescript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild ./src/index.ts --bundle --target=es2020 --outfile=/build/bundle.js",
+    "prod": "esbuild ./src/index.ts --bundle --minify --target=es2020 --outfile=/build/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benevolarX/mecha-ts.git"
+  },
+  "author": "benevolarX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benevolarX/mecha-ts/issues"
+  },
+  "homepage": "https://github.com/benevolarX/mecha-ts#readme",
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "typescript": "^4.3.5"
+  }
+}

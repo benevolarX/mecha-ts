@@ -1,5 +1,7 @@
+type key = string | symbol
+
 interface IContext {
-  [k: string]: any
+  [k: key]: any
 }
 
 interface IAction<P = any> {
@@ -22,7 +24,7 @@ interface ITransition<C extends IContext = IContext> {
   guard?: IGuard<C>
 }
 
-interface IIntemediate<C extends IContext = IContext> extends ITransition<C> {
+interface IIntermediate<C extends IContext = IContext> extends ITransition<C> {
   error: number
 }
 
@@ -62,7 +64,7 @@ class Transition<C extends IContext> implements ITransition<C> {
   }
 }
 
-class Intermediate<C extends IContext = IContext> implements IIntemediate<C> {
+class Intermediate<C extends IContext = IContext> implements IIntermediate<C> {
   constructor(public how: number,
     public guard: IGuard<C>,
     public where: number,
@@ -133,10 +135,10 @@ class Service<C extends IContext = IContext> implements IService<C> {
     if (transition) {
       const action: IAction = { ...{ payload }, type: transition.how }
       if (transition.guard && !transition.guard.fn(this.context, action)) {
-        if (!(transition as IIntemediate)?.error) {
+        if (!(transition as IIntermediate)?.error) {
           return
         }
-        this.setState((transition as IIntemediate).error)
+        this.setState((transition as IIntermediate).error)
       }
       else {
         this.setState(transition.where)
@@ -185,7 +187,7 @@ function intermediate<C extends IContext, P = any>(
   succes: number,
   error: number,
   finaly?: IReducer<C, P>
-): IIntemediate<C> {
+): IIntermediate<C> {
   return new Intermediate(how, guard, succes, error, finaly)
 }
 
@@ -207,7 +209,7 @@ export {
   IContext,
   IGuard,
   IMachine,
-  IIntemediate,
+  IIntermediate,
   IReducer,
   IService,
   IState,

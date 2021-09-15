@@ -1,11 +1,29 @@
 {
   "name": "mecha-ts",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "finished state machine using typescript",
-  "main": "index.js",
+  "source": "./lib/index.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "node": "./lib/index.mjs",
+      "default": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/index.mjs",
+    "lib/index.d.ts"
+  ],
+  "type": "commonjs",
+  "types": "./lib/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
-    "dev": "esbuild ./src/index.ts --bundle --target=es2020 --outfile=/build/bundle.js",
-    "prod": "esbuild ./src/index.ts --bundle --minify --target=es2020 --outfile=/build/bundle.js"
+    "sample": "esbuild ./sample/index.ts --bundle --minify --target=es2021 --outfile=/build/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +36,7 @@
   },
   "homepage": "https://github.com/benevolarX/mecha-ts#readme",
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "typescript": "^4.3.5"
+    "@types/node": "^16.9.1",
+    "typescript": "^4.4.3"
   }
 }

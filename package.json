@@ -1,6 +1,6 @@
 {
   "name": "mecha-ts",
-  "version": "1.4.0",
+  "version": "0.7.2",
   "description": "finished state machine using typescript",
   "source": "./lib/index.js",
   "main": "./lib/index.js",

@@ -79,8 +79,8 @@ export { MyMachine }
 ## Important
 mecha-ts is inspired by [robot3](https://github.com/matthewp/robot) 
 but mecha-ts and robot3 has some differences : 
-mecha-ts use number for identify states and events, robot3 accept only string
-robot3 use invoke for async transition, mecha-ts haven't
+ - mecha-ts use number for identify states and events, robot3 accept only string
+ - robot3 use invoke for async transition, mecha-ts haven't
 ## Contributing
 ...
 ## License

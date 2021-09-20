@@ -1,19 +1,19 @@
 /// <reference path="index.js" />
 declare module 'mecha' {
 
-  type key = string | symbol
+  export type key = string | symbol
 
   /**
    * context app
    */
-  interface IContext {
+  export interface IContext {
     [k: key]: any
   }
 
   /**
    * event for change state
    */
-  interface IAction<P = any> {
+  export interface IAction<P = any> {
     type: number,
     payload?: P
   }
@@ -21,21 +21,21 @@ declare module 'mecha' {
   /**
    * generate new context after action perform
    */
-  interface IReducer<C extends IContext = IContext, P = any> {
+  export interface IReducer<C extends IContext = IContext, P = any> {
     fn: (c?: C, a?: IAction<P>) => C
   }
 
   /**
    * stop change state if condition disrespect
    */
-  interface IGuard<C extends IContext = IContext, P = any> {
+  export interface IGuard<C extends IContext = IContext, P = any> {
     fn: (c?: C, a?: IAction<P>) => boolean
   }
 
   /**
    * link between 2 states, use reducer or guard option
    */
-  interface ITransition<C extends IContext = IContext> {
+  export interface ITransition<C extends IContext = IContext> {
     where: number,
     how: number,
     reducer?: IReducer<C>,
@@ -45,14 +45,14 @@ declare module 'mecha' {
   /**
    * unstable state between 2, need fix state with success or error
    */
-  interface IIntermediate<C extends IContext = IContext> extends ITransition<C> {
+  export interface IIntermediate<C extends IContext = IContext> extends ITransition<C> {
     error: number
   }
 
   /**
    * state identify by id and use some transitions if isn't final state
    */
-  interface IState<C extends IContext = IContext> {
+  export interface IState<C extends IContext = IContext> {
     id: number,
     transitions: ITransition<C>[]
   }
@@ -60,14 +60,14 @@ declare module 'mecha' {
   /**
    * list of states and has one current state
    */
-  interface IStatesGroup<C extends IContext = IContext> {
+  export interface IStatesGroup<C extends IContext = IContext> {
     get current(): IState<C>
   }
 
   /**
    * result of config machine
    */
-  interface IMachine<C extends IContext = IContext> {
+  export interface IMachine<C extends IContext = IContext> {
     states: IState<C>[],
     makeCtx: () => C
   }
@@ -75,7 +75,7 @@ declare module 'mecha' {
   /**
    * result of interpret machine
    */
-  interface IService<C extends IContext = IContext> {
+  export interface IService<C extends IContext = IContext> {
     state: number,
     states: IStatesGroup<C>,
     context: C,
@@ -83,22 +83,22 @@ declare module 'mecha' {
     send(type: number, payload?: { [key: string]: any }): void
   }
 
-  function createMachine<C extends IContext>(states: IState<C>[], makeCtx: () => C): IMachine<C>;
+  export function createMachine<C extends IContext>(states: IState<C>[], makeCtx: () => C): IMachine<C>;
 
-  function state<C extends IContext>(id: number, ...transitions: ITransition<C>[]): IState<C>;
+  export function state<C extends IContext>(id: number, ...transitions: ITransition<C>[]): IState<C>;
 
-  function reduce<C extends IContext, P = any>(fn: ((ctx?: C, action?: IAction<P>) => C)): IReducer<C, P>;
+  export function reduce<C extends IContext, P = any>(fn: ((ctx?: C, action?: IAction<P>) => C)): IReducer<C, P>;
 
-  function guard<C extends IContext, P = any>(fn: ((ctx?: C, action?: IAction<P>) => boolean)): IGuard<C, P>;
+  export function guard<C extends IContext, P = any>(fn: ((ctx?: C, action?: IAction<P>) => boolean)): IGuard<C, P>;
 
-  function transition<C extends IContext, P = any>(
+  export function transition<C extends IContext, P = any>(
     how: number,
     where: number,
     reducer?: IReducer<C, P>,
     guard?: IGuard<C, P>
   ): ITransition<C>;
 
-  function intermediate<C extends IContext, P = any>(
+  export function intermediate<C extends IContext, P = any>(
     how: number,
     guard: IGuard<C, P>,
     succes: number,
@@ -106,7 +106,7 @@ declare module 'mecha' {
     finaly?: IReducer<C, P>
   ): IIntermediate<C>;
 
-  function interpret<C extends IContext, P = any>(
+  export function interpret<C extends IContext, P = any>(
     machine: IMachine<C>,
     onStateChange?: (s: IState<C>) => void,
     onContextChange?: (c: C) => void,
@@ -114,22 +114,4 @@ declare module 'mecha' {
     initContext?: () => C
   ): IService<C>;
 
-  export {
-    createMachine,
-    guard,
-    IAction,
-    IContext,
-    IGuard,
-    IMachine,
-    IIntermediate,
-    IReducer,
-    IService,
-    IState,
-    ITransition,
-    intermediate,
-    interpret,
-    reduce,
-    state,
-    transition
-  }
 }

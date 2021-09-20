@@ -1,15 +1,17 @@
 {
   "name": "mecha-ts",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "finished state machine using typescript",
   "source": "./lib/index.js",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
   "exports": {
     ".": {
+      "browser": "./lib/index.mjs",
+      "import": "./lib/index.mjs",
       "require": "./lib/index.js",
       "node": "./lib/index.mjs",
-      "default": "./lib/index.js"
+      "default": "./lib/index.mjs"
     }
   },
   "files": [

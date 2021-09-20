@@ -17,7 +17,7 @@ npm i mecha-ts@latest
 ## Usage
 ```js
 // machine.js
-import { createMachine, guard, IAction, intermediate, reduce, state, transition } from "mecha-ts"
+import { createMachine, guard, intermediate, reduce, state, transition } from "mecha-ts"
 
 const STATES = Object.freeze({
   LOGIN_SCREEN: 0,
